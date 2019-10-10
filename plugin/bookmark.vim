@@ -323,9 +323,10 @@ fun! s:fzf_args(bang)
   return args
 endfun
 
-command! -bang -nargs=? -complete=buffer FzfBookmarks call fzf#vim#ag(<q-args>, 
-  \                 <bang>0 ? fzf#vim#with_preview(s:fzf_args(1))
-  \                         : s:fzf_args(0))
+command! -bang -nargs=? -complete=buffer FzfBookmarks
+      \  call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1,
+      \  <bang>0 ? fzf#vim#with_preview(s:fzf_args(1))
+      \  : s:fzf_args(0))
 
 
 " }}}
